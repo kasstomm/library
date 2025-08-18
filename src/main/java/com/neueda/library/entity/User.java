@@ -12,6 +12,7 @@ import java.util.List;
 @Entity(name = "users")
 @Getter
 @Setter
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
