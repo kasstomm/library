@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class BorrowBook {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +23,24 @@ public class User {
     private String email;
     private String password;
 
+
     @OneToMany(mappedBy = "user")
-    private List<BorrowBook> books;
-    @OneToMany(mappedBy = "user")
-    private List<BorrowBook> history;
+    private List<BorrowBook> borrowHistory = new ArrayList<>();
+
+    @Transient
+    public List<BorrowBook> getActiveBorrows() {
+        return borrowHistory.stream().filter(b -> b.getReturnDate() == null).toList();
+    }
+
+    @Transient
+    public List<BorrowBook> getPastBorrows() {
+        return borrowHistory.stream().filter(b -> b.getReturnDate() != null).toList();
+    }
 
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.books = new ArrayList<>();
-        this.history = new ArrayList<>();
+        this.borrowHistory = new ArrayList<>();
     }
 }
