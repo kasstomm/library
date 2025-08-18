@@ -2,6 +2,7 @@ package com.neueda.library.services;
 
 import com.neueda.library.entity.Book;
 import com.neueda.library.repositories.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,8 +10,9 @@ import java.util.List;
 @Service
 public class BookService implements IBookService {
 
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
+    @Autowired
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
