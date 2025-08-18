@@ -1,5 +1,6 @@
 package com.neueda.library.controllers;
 
+import com.neueda.library.entity.Book;
 import com.neueda.library.entity.User;
 import com.neueda.library.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,4 +31,16 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
     }
+
+    @GetMapping("/books/{userId}")
+    public ResponseEntity<List<Book>> getBorrowedBooks(@PathVariable("userId") Long userId) {
+        List<Book> myBooks = userService.getMyBooks(userId);
+        return new ResponseEntity<>(myBooks, HttpStatus.OK);
+    }
+    // dla usera aktualne ksiazki
+    // dla usera historia wypozyczen
+    // wypozycz ksiazke
+
+
+
 }

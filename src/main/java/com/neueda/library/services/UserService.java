@@ -6,6 +6,7 @@ import com.neueda.library.entity.BorrowBook;
 import com.neueda.library.entity.User;
 import com.neueda.library.exceptions.InvalidUserException;
 import com.neueda.library.repositories.BookRepository;
+import com.neueda.library.repositories.BorrowBookRepository;
 import com.neueda.library.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,10 +17,12 @@ import java.util.List;
 @Component
 public class UserService {
    private final UserRepository userRepository;
+   private final BorrowBookRepository borrowBookRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository1) {
-        this.userRepository = userRepository1;
+    public UserService(UserRepository userRepository, BorrowBookRepository borrowBookRepository) {
+        this.userRepository = userRepository;
+        this.borrowBookRepository = borrowBookRepository;
     }
 
 //    public List<BorrowBook> getBooks(User userId) {
@@ -32,7 +35,7 @@ public class UserService {
        return userRepository.findAll();
     }
 
-    public User createUser (User user){
+    public User createUser (User user) {
         {
             if (user.getName() == null || user.getName().isBlank()) {
                 throw new InvalidUserException("Name cannot be empty");
@@ -46,4 +49,8 @@ public class UserService {
             return userRepository.save(user);
         }
     }
-}
+        public List<Book> getMyBooks(Long userId){
+           return borrowBookRepository.findAllByUserId(userId);
+        }
+    }
+
