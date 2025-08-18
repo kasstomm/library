@@ -14,10 +14,11 @@ import java.util.List;
 
 @Component
 public class UserService {
-    UserRepository userRepository;
+   private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository1) {
+        this.userRepository = userRepository1;
     }
 
 //    public List<BorrowBook> getBooks(User userId) {
