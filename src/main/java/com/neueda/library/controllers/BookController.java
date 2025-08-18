@@ -18,6 +18,7 @@ public class BookController {
     private final BookService bookService;
     private final Logger logger = LoggerFactory.getLogger(BookController.class);
 
+    @Autowired
     public BookController(BookService bookService) {this.bookService = bookService;}
 
     @GetMapping

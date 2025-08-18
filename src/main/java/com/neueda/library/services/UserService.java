@@ -15,24 +15,22 @@ import java.util.List;
 @Component
 public class UserService {
     UserRepository userRepository;
-    BookRepository bookRepository;
-    UserController userController;
 
     @Autowired
-    public UserService(UserRepository userRepository, BookRepository bookRepository, UserController userController) {
+    public UserService(UserRepository userRepository) {
     }
 
-    public List<BorrowBook> getBooks(User userId) {
-       User user = userRepository.getUsersById(userId);
-       List<Book> borrowedBooks = new ArrayList<>();
+//    public List<BorrowBook> getBooks(User userId) {
+//
+//      return userRepository.findAllById(var);
+//
+//    }
 
-        return null;
-    }
     public List<User> getUsers(){
-       return userRepository.getAllUsers();
+       return userRepository.findAll();
     }
 
     public User createUser (User user){
-         return userRepository.createUser(user);
+         return userRepository.save(user);
     }
 }

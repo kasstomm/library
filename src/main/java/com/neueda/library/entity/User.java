@@ -1,8 +1,6 @@
 package com.neueda.library.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,12 +11,13 @@ import java.util.List;
 @Setter
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
     private String password;
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<BorrowBook> books;
-    @OneToMany
-    private List<BorrowBook> history;
+//    @OneToMany(mappedBy = "book")
+//    private List<BorrowBook> history;
 }

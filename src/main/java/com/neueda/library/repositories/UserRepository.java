@@ -11,8 +11,4 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 
-    User getUsersById(User userId);
-    List<User> getAllUsers();
-    User createUser(@RequestBody User user);
-    User updateUser(@RequestBody User user);
 }
