@@ -4,6 +4,7 @@ import com.neueda.library.controllers.UserController;
 import com.neueda.library.entity.Book;
 import com.neueda.library.entity.BorrowBook;
 import com.neueda.library.entity.User;
+import com.neueda.library.exceptions.InvalidUserException;
 import com.neueda.library.repositories.BookRepository;
 import com.neueda.library.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,17 @@ public class UserService {
     }
 
     public User createUser (User user){
-         return userRepository.save(user);
+        {
+            if (user.getName() == null || user.getName().isBlank()) {
+                throw new InvalidUserException("Name cannot be empty");
+            }
+            if (user.getEmail() == null || !user.getEmail().contains("@")) {
+                throw new InvalidUserException("Invalid email address");
+            }
+            if (user.getPassword() == null || user.getPassword().length() < 6) {
+                throw new InvalidUserException("Password must be at least 6 characters long");
+            }
+            return userRepository.save(user);
+        }
     }
 }
