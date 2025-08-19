@@ -16,3 +16,25 @@
 .btn-dark-border {
     border: 2px solid #c6c7c8; /* dark gray border */
 }
+body {
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 220px;
+    background-color: #343a40;
+    padding: 20px 0;
+}
+.sidebar a {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+.sidebar a:hover {
+    background-color: #495057;
+}
+.content {
+    flex: 1;
+    padding: 20px;
+}
