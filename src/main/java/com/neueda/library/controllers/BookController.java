@@ -5,6 +5,7 @@ import com.neueda.library.services.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,15 +41,16 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
-        logger.info("POST /books called with book: {}", book);
         Book createdBook = bookService.createBook(book);
-        return ResponseEntity.ok(createdBook);
+        return new ResponseEntity<>(createdBook, HttpStatus.CREATED);
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
-        logger.info("DELETE /books/{} called", id);
+    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }

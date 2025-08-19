@@ -17,18 +17,18 @@ import java.util.List;
 @Component
 public class UserService {
    private final UserRepository userRepository;
+   private final BookRepository bookRepository;
    private final BorrowBookRepository borrowBookRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, BorrowBookRepository borrowBookRepository) {
+    public UserService(UserRepository userRepository, BorrowBookRepository borrowBookRepository, BookRepository bookRepository ) {
         this.userRepository = userRepository;
         this.borrowBookRepository = borrowBookRepository;
+        this.bookRepository = bookRepository;
     }
 
     public List<BorrowBook> getMyBooks(Long userId) {
-
-      return null;
-
+        return borrowBookRepository.findByFromUserId_Id(userId);
     }
 
     public List<User> getUsers(){
@@ -49,8 +49,21 @@ public class UserService {
             return userRepository.save(user);
         }
     }
-      //  public List<Book> getMyBooks(Long userId){
-       //    return borrowBookRepository.findAllByUserId(userId);
-       // }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new InvalidUserException("User with id " + id + " not found"));
     }
+
+    public BorrowBook borrowBook(Long userId, Long bookId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new InvalidUserException("User not found"));
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+
+        BorrowBook borrow = new BorrowBook(user, book);
+        return borrowBookRepository.save(borrow);
+    }
+
+}
 

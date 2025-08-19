@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -29,13 +31,13 @@ public class BorrowBook {
     @JsonBackReference("borrowHistory")
     private Book fromBookId;
 
-    private Date returnDate;
-    private Date borrowDate;
+    private LocalDateTime  returnDate;
+    private LocalDateTime   borrowDate;
 
     public BorrowBook(User fromUserId, Book fromBookId) {
         this.fromUserId = fromUserId;
         this.fromBookId = fromBookId;
         this.returnDate = null;
-        this.borrowDate = new Date();
+        this.borrowDate = LocalDateTime.now();
     }
 }
