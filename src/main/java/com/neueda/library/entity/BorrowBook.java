@@ -1,18 +1,13 @@
 package com.neueda.library.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name= "borrowedBooksHistory")
@@ -35,7 +30,5 @@ public class BorrowBook {
     public BorrowBook(User fromUserId, Book fromBookId) {
         this.fromUserId = fromUserId;
         this.fromBookId = fromBookId;
-        this.returnDate = null;
-        this.borrowDate = new Date();
     }
 }

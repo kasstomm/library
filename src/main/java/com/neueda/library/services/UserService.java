@@ -5,6 +5,8 @@ import com.neueda.library.entity.Book;
 import com.neueda.library.entity.BorrowBook;
 import com.neueda.library.entity.User;
 import com.neueda.library.exceptions.InvalidUserException;
+import com.neueda.library.exceptions.NoBorrowedBooks;
+import com.neueda.library.exceptions.NoExistingUser;
 import com.neueda.library.repositories.BookRepository;
 import com.neueda.library.repositories.BorrowBookRepository;
 import com.neueda.library.repositories.UserRepository;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class UserService {
@@ -26,9 +30,17 @@ public class UserService {
     }
 
     public List<BorrowBook> getMyBooks(Long userId) {
-
-      return null;
-
+var userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()) {
+            throw new NoExistingUser("");
+        }
+       var myBorrowedBooksOptional =userOptional.get().getBorrowedBooks();
+        if(myBorrowedBooksOptional.isEmpty()){
+            throw new NoBorrowedBooks("You don't have any borrowed book");
+        }
+        return myBorrowedBooksOptional.stream()
+            .filter(a -> a.getReturnDate()==null)
+            .collect(Collectors.toList());
     }
 
     public List<User> getUsers(){

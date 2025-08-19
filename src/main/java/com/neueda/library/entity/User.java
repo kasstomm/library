@@ -1,20 +1,13 @@
 package com.neueda.library.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.Where;
+import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "users")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class User {
     @Id
@@ -34,6 +27,5 @@ List<BorrowBook> borrowedBooks;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.borrowedBooks = new ArrayList<>();
     }
 }
