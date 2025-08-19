@@ -46,9 +46,9 @@ public class UserService {
         if (user.getEmail() == null || !user.getEmail().contains("@")) {
             throw new InvalidUserException("Invalid email address");
         }
-        if (user.getPassword() == null || user.getPassword().length() < 6) {
+        /*if (user.getPassword() == null || user.getPassword().length() < 6) {
             throw new InvalidUserException("Password must be at least 6 characters long");
-        }
+        }*/
         return userRepository.save(user);
     }
 

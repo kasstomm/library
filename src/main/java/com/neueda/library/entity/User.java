@@ -18,16 +18,18 @@ public class User {
 
     private String name;
     private String email;
-    private String password;
+    //private String password;
 
 @JsonManagedReference("borrowedBooks")
 @OneToMany(cascade = CascadeType.ALL, mappedBy = "fromUserId")
 List<BorrowBook> borrowedBooks;
 
-    public User(String name, String email, String password) {
+
+    //public User(String name, String email, String password) {
+    public User(String name, String email) {
         this.name = name;
         this.email = email;
-        this.password = password;
+        //this.password = password;
         this.borrowedBooks = new ArrayList<>();
     }
 }
