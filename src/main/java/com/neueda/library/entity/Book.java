@@ -1,5 +1,6 @@
 package com.neueda.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.neueda.library.utils.BookStatus;
 import com.neueda.library.utils.Genre;
@@ -31,7 +32,7 @@ public class Book {
     @Column(name = "bookStatus", nullable = false)
     private BookStatus bookStatus;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fromBookId")
-    @JsonManagedReference("borrowHistory")
+    @JsonBackReference("borrowHistory")
     List<BorrowBook> borrowHistory;
 
 
