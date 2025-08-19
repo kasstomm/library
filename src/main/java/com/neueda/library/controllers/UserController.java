@@ -48,6 +48,27 @@ public class UserController {
         return new ResponseEntity<>(borrow, HttpStatus.CREATED);
     }
 
+    // zwrot książki przez użytkownika
+    @PutMapping("/{userId}/return/{borrowId}")
+    public ResponseEntity<BorrowBook> returnBook(
+            @PathVariable Long userId,
+            @PathVariable Long borrowId) {
+        BorrowBook borrow = borrowBookService.returnBook(borrowId);
+        return ResponseEntity.ok(borrow);
+    }
+
+    // aktualnie wypożyczone książki użytkownika
+    @GetMapping("/{userId}/borrowed")
+    public ResponseEntity<List<BorrowBook>> getUserBorrowedBooks(@PathVariable Long userId) {
+        return ResponseEntity.ok(userService.getMyBooks(userId));
+    }
+
+    // cała historia wypożyczeń użytkownika
+    @GetMapping("/{userId}/history")
+    public ResponseEntity<List<BorrowBook>> getUserBorrowHistory(@PathVariable Long userId) {
+        return ResponseEntity.ok(borrowBookService.getBorrowHistoryForUser(userId));
+    }
+
 
 
     // dla usera aktualne ksiazki

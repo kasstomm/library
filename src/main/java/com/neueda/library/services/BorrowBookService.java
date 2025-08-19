@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 @Service
 public class BorrowBookService {
 
@@ -52,6 +51,7 @@ public class BorrowBookService {
                 .orElseThrow(() -> new RuntimeException("Borrow record not found"));
 
         borrow.setReturnDate(LocalDateTime.now());
+
         Book book = borrow.getFromBookId();
         book.setBookStatus(BookStatus.AVAILABLE);
 

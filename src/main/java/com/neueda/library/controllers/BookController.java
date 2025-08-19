@@ -1,7 +1,9 @@
 package com.neueda.library.controllers;
 
 import com.neueda.library.entity.Book;
+import com.neueda.library.entity.BorrowBook;
 import com.neueda.library.services.BookService;
+import com.neueda.library.services.BorrowBookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,14 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
+    private final BorrowBookService borrowBookService;
     private final Logger logger = LoggerFactory.getLogger(BookController.class);
 
     @Autowired
-    public BookController(BookService bookService) {this.bookService = bookService;}
-
+    public BookController(BookService bookService, BorrowBookService borrowBookService) {
+        this.bookService = bookService;
+        this.borrowBookService = borrowBookService;
+    }
     @GetMapping
     public ResponseEntity<List<Book>> getBooks() {
         logger.info("GET /books called");
@@ -50,6 +55,10 @@ public class BookController {
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/{bookId}/history")
+    public ResponseEntity<List<BorrowBook>> getBookHistory(@PathVariable Long bookId) {
+        return ResponseEntity.ok(borrowBookService.getBorrowHistoryForBook(bookId));
     }
 
 

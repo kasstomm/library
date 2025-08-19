@@ -16,15 +16,21 @@ import java.util.List;
 
 @Component
 public class UserService {
-   private final UserRepository userRepository;
-   private final BookRepository bookRepository;
-   private final BorrowBookRepository borrowBookRepository;
+
+    private final UserRepository userRepository;
+    private final BorrowBookRepository borrowBookRepository;
+    private final BookRepository bookRepository;
+    private final BorrowBookService borrowBookService;
 
     @Autowired
-    public UserService(UserRepository userRepository, BorrowBookRepository borrowBookRepository, BookRepository bookRepository ) {
+    public UserService(UserRepository userRepository,
+                       BorrowBookRepository borrowBookRepository,
+                       BookRepository bookRepository,
+                       BorrowBookService borrowBookService) {
         this.userRepository = userRepository;
         this.borrowBookRepository = borrowBookRepository;
         this.bookRepository = bookRepository;
+        this.borrowBookService = borrowBookService;
     }
 
     public List<BorrowBook> getMyBooks(Long userId) {
@@ -32,22 +38,20 @@ public class UserService {
     }
 
     public List<User> getUsers(){
-       return userRepository.findAll();
+        return userRepository.findAll();
     }
 
-    public User createUser (User user) {
-        {
-            if (user.getName() == null || user.getName().isBlank()) {
-                throw new InvalidUserException("Name cannot be empty");
-            }
-            if (user.getEmail() == null || !user.getEmail().contains("@")) {
-                throw new InvalidUserException("Invalid email address");
-            }
-            if (user.getPassword() == null || user.getPassword().length() < 6) {
-                throw new InvalidUserException("Password must be at least 6 characters long");
-            }
-            return userRepository.save(user);
+    public User createUser(User user) {
+        if (user.getName() == null || user.getName().isBlank()) {
+            throw new InvalidUserException("Name cannot be empty");
         }
+        if (user.getEmail() == null || !user.getEmail().contains("@")) {
+            throw new InvalidUserException("Invalid email address");
+        }
+        if (user.getPassword() == null || user.getPassword().length() < 6) {
+            throw new InvalidUserException("Password must be at least 6 characters long");
+        }
+        return userRepository.save(user);
     }
 
     public User getUserById(Long id) {
@@ -55,15 +59,9 @@ public class UserService {
                 .orElseThrow(() -> new InvalidUserException("User with id " + id + " not found"));
     }
 
+
     public BorrowBook borrowBook(Long userId, Long bookId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new InvalidUserException("User not found"));
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new RuntimeException("Book not found"));
-
-        BorrowBook borrow = new BorrowBook(user, book);
-        return borrowBookRepository.save(borrow);
+        return borrowBookService.borrowBook(userId, bookId);
     }
-
 }
 
