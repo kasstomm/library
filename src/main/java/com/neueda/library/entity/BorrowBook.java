@@ -3,18 +3,12 @@ package com.neueda.library.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name= "borrowedBooksHistory")
@@ -23,12 +17,11 @@ public class BorrowBook {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @JsonBackReference("borrowedBooks")
     @ManyToOne
     private User fromUserId;
     @ManyToOne
-    @JsonBackReference("borrowHistory")
+    @JsonManagedReference("borrowHistory")
     private Book fromBookId;
 
     private LocalDateTime  returnDate;
