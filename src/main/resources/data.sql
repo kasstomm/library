@@ -8,11 +8,11 @@ VALUES ('The Fellowship of the Ring', 'J.R.R. Tolkien', 'Allen & Unwin', 'FANTAS
 INSERT INTO books (title, author, publisher, genre, book_status)
 VALUES ('The Bourne Identity', 'Robert Ludlum', 'Random House', 'ACTION', 'AVAILABLE');
 
-INSERT INTO users (name, email, password)
-VALUES ('Alice', 'alice@example.com', 'password123');
+INSERT INTO users (name, email)
+VALUES ('Alice Cooper', 'alice@example.com');
 
-INSERT INTO users (name, email, password)
-VALUES ('Bob', 'bob@example.com', 'secure456');
+INSERT INTO users (name, email)
+VALUES ('Bob Marley', 'bob@example.com');
 
-INSERT INTO users (name, email, password)
-VALUES ('Charlie', 'charlie@example.com', 'mypassword');
+INSERT INTO users (name, email)
+VALUES ('Charlie Swan', 'charlie@example.com');
