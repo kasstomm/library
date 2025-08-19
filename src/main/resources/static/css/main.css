@@ -1,0 +1,18 @@
+/* Make the card container take more height and center content vertically */
+.main-card {
+    height: 400px; /* increase height as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vertical centering */
+    align-items: center;    /* horizontal centering */
+    gap: 1.5rem;            /* space between elements */
+    padding: 2rem;
+}
+
+.main-card .btn {
+    width: 150px; /* make buttons wider */
+}
+
+.btn-dark-border {
+    border: 2px solid #c6c7c8; /* dark gray border */
+}
