@@ -1,4 +1,4 @@
-package com.neueda.library.entity;
+package com.neueda.library.utils;
 
 public enum BookStatus {
     AVAILABLE,
