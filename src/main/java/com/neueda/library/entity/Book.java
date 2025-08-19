@@ -22,6 +22,7 @@ public class Book {
     private String title;
     private String author;
     private String publisher;
+    @Enumerated(EnumType.STRING)
     private Genre genre;
     @OneToMany(mappedBy = "book")
     private List<BorrowBook> borrowHistory;
