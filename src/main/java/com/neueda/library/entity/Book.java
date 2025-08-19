@@ -1,5 +1,7 @@
 package com.neueda.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.neueda.library.utils.BookStatus;
 import com.neueda.library.utils.Genre;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,7 +11,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "book")
+@Entity(name = "books")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,13 +26,20 @@ public class Book {
     private String publisher;
     @Enumerated(EnumType.STRING)
     private Genre genre;
-    @OneToMany(mappedBy = "book")
-    private List<BorrowBook> borrowHistory;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "bookStatus", nullable = false)
+    private BookStatus bookStatus;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fromBookId")
+    @JsonManagedReference("borrowHistory")
+    List<BorrowBook> borrowHistory;
+
 
 
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
+        this.bookStatus = BookStatus.AVAILABLE;
         this.borrowHistory = new ArrayList<>();
     }
 }
