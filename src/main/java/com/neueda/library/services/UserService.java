@@ -25,11 +25,11 @@ public class UserService {
         this.borrowBookRepository = borrowBookRepository;
     }
 
-//    public List<BorrowBook> getBooks(User userId) {
-//
-//      return userRepository.findAllById(var);
-//
-//    }
+    public List<BorrowBook> getMyBooks(Long userId) {
+
+      return null;
+
+    }
 
     public List<User> getUsers(){
        return userRepository.findAll();
@@ -49,8 +49,8 @@ public class UserService {
             return userRepository.save(user);
         }
     }
-        public List<Book> getMyBooks(Long userId){
-           return borrowBookRepository.findAllByUserId(userId);
-        }
+      //  public List<Book> getMyBooks(Long userId){
+       //    return borrowBookRepository.findAllByUserId(userId);
+       // }
     }
 

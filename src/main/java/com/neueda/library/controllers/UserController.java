@@ -32,11 +32,11 @@ public class UserController {
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
     }
 
-    @GetMapping("/books/{userId}")
-    public ResponseEntity<List<Book>> getBorrowedBooks(@PathVariable("userId") Long userId) {
-        List<Book> myBooks = userService.getMyBooks(userId);
-        return new ResponseEntity<>(myBooks, HttpStatus.OK);
-    }
+//    @GetMapping("/books/{userId}")
+//    public ResponseEntity<List<Book>> getBorrowedBooks(@PathVariable("userId") Long userId) {
+//      //  List<Book> myBooks = userService.getMyBooks(userId);
+//        return new ResponseEntity<>(myBooks, HttpStatus.OK);
+//    }
     // dla usera aktualne ksiazki
     // dla usera historia wypozyczen
     // wypozycz ksiazke
