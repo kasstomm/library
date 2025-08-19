@@ -7,15 +7,8 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<!-- Sidebar -->
-<div class="sidebar">
-  <h4 class="text-center text-white mb-4">📚 Library</h4>
-  <a href="index.html" class="btn btn-dark w-100 mb-2 text-start">Home Page</a>
-  <a href="books.html" class="btn btn-dark w-100 mb-2 text-start">All Books</a>
-  <a href="addbook.html" class="btn btn-dark w-100 mb-2 text-start">Add Book</a>
-  <a href="adduser.html" class="btn btn-dark w-100 mb-2 text-start">Add User</a>
-  <a href="users.html" class="btn btn-dark w-100 mb-2 text-start">All Users</a>
-</div>
+<!-- Sidebar placeholder -->
+<div id="sidebar-container"></div>
 
 <!-- Main Content -->
 <div class="content">
@@ -41,6 +34,15 @@
 </div>
 
 <script>
+
+    // Load sidebar dynamically
+    fetch("sidebar.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("sidebar-container").innerHTML = data;
+        })
+        .catch(err => console.error("Sidebar load error:", err));
+
   const API_URL = "http://localhost:8080/books";
   let booksData = [];
 
