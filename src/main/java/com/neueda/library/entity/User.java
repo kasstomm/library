@@ -1,5 +1,7 @@
 package com.neueda.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,24 +26,15 @@ public class User {
     private String email;
     private String password;
 
+@JsonManagedReference("borrowedBooks")
+@OneToMany(cascade = CascadeType.ALL, mappedBy = "fromUserId")
+List<BorrowBook> borrowedBooks;
 
-    @OneToMany(mappedBy = "user")
-    private List<BorrowBook> borrowHistory = new ArrayList<>();
-
-    @Transient
-    public List<BorrowBook> getActiveBorrows() {
-        return borrowHistory.stream().filter(b -> b.getReturnDate() == null).toList();
-    }
-
-    @Transient
-    public List<BorrowBook> getPastBorrows() {
-        return borrowHistory.stream().filter(b -> b.getReturnDate() != null).toList();
-    }
 
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.borrowHistory = new ArrayList<>();
+        this.borrowedBooks = new ArrayList<>();
     }
 }
