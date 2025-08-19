@@ -9,10 +9,10 @@ INSERT INTO books (title, author, publisher, genre, book_status)
 VALUES ('The Bourne Identity', 'Robert Ludlum', 'Random House', 'ACTION', 'AVAILABLE');
 
 INSERT INTO users (name, email)
-VALUES ('Alice', 'alice@example.com');
+VALUES ('Alice Cooper', 'alice@example.com');
 
 INSERT INTO users (name, email)
-VALUES ('Bob', 'bob@example.com');
+VALUES ('Bob Marley', 'bob@example.com');
 
 INSERT INTO users (name, email)
-VALUES ('Charlie', 'charlie@example.com');
+VALUES ('Charlie Swan', 'charlie@example.com');
