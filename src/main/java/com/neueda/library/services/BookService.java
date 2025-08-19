@@ -48,4 +48,29 @@ public class BookService implements IBookService {
         }
         bookRepository.deleteById(id);
     }
+
+    public void modifiedFields(Book modifiedBook, Book newBook) {
+        if (newBook.getTitle() != null) {
+            modifiedBook.setTitle(newBook.getTitle());
+        }
+        if (newBook.getAuthor() != null) {
+            modifiedBook.setAuthor(newBook.getAuthor());
+        }
+        if (newBook.getPublisher() != null) {
+            modifiedBook.setPublisher(newBook.getPublisher());
+        }
+        if (newBook.getGenre() != null) {
+            modifiedBook.setGenre(newBook.getGenre());
+        }
+    }
+    public void updateBook(Long bookId, Book newBook) {
+        var bookOptional = bookRepository.findById(bookId);
+        if (bookOptional.isPresent()) {
+            var modifiedBook = bookOptional.get();
+            modifiedFields(modifiedBook, newBook);
+            bookRepository.save(modifiedBook);
+        } else {
+            throw new BookNotFoundException("Book with id " + bookId + " not found");
+        }
+    }
 }

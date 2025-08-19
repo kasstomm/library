@@ -2,6 +2,7 @@ package com.neueda.library.controllers;
 
 import com.neueda.library.entity.Book;
 import com.neueda.library.entity.BorrowBook;
+import com.neueda.library.entity.User;
 import com.neueda.library.services.BookService;
 import com.neueda.library.services.BorrowBookService;
 import org.slf4j.Logger;
@@ -43,14 +44,11 @@ public class BookController {
         return ResponseEntity.ok(book);
     }
 
-
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
         Book createdBook = bookService.createBook(book);
         return new ResponseEntity<>(createdBook, HttpStatus.CREATED);
     }
-
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
@@ -60,6 +58,10 @@ public class BookController {
     public ResponseEntity<List<BorrowBook>> getBookHistory(@PathVariable Long bookId) {
         return ResponseEntity.ok(borrowBookService.getBorrowHistoryForBook(bookId));
     }
-
-
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/{bookId}")
+    public ResponseEntity<?> updateBook(@PathVariable Long bookId, @RequestBody Book book) {
+        bookService.updateBook(bookId, book);
+        return ResponseEntity.ok("User successfully updated!");
+    }
 }

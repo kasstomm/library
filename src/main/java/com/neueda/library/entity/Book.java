@@ -5,16 +5,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.neueda.library.utils.BookStatus;
 import com.neueda.library.utils.Genre;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "books")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class Book {
 
@@ -32,10 +30,8 @@ public class Book {
     @Column(name = "bookStatus", nullable = false)
     private BookStatus bookStatus;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fromBookId")
-    @JsonBackReference("borrowHistory")
+    @JsonManagedReference("borrowHistory")
     List<BorrowBook> borrowHistory;
-
-
 
     public Book(String title, String author) {
         this.title = title;
