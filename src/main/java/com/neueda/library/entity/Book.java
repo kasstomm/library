@@ -30,7 +30,7 @@ public class Book {
     @Column(name = "bookStatus", nullable = false)
     private BookStatus bookStatus;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fromBookId")
-    @JsonManagedReference("borrowHistory")
+    @JsonBackReference("borrowHistory")
     List<BorrowBook> borrowHistory;
 
     public Book(String title, String author) {
