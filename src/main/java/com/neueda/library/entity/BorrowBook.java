@@ -21,7 +21,7 @@ public class BorrowBook {
     @ManyToOne
     private User fromUserId;
     @ManyToOne
-    @JsonBackReference("borrowHistory")
+    @JsonManagedReference("borrowHistory")
     private Book fromBookId;
 
     private LocalDateTime  returnDate;
